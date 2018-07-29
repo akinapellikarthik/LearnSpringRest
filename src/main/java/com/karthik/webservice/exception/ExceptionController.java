@@ -2,8 +2,10 @@ package com.karthik.webservice.exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,10 +23,21 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(res, HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
 	public String getException() {
 		return "exception...";
+	}
+	
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(
+			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		ExceptionResponse res = new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
+		
+		return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 	}
 
 }

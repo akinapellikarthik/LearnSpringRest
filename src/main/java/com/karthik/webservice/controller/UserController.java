@@ -3,8 +3,11 @@ package com.karthik.webservice.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +35,7 @@ public class UserController {
 	}
 
 	@PostMapping("/createUser")
-	public ResponseEntity<User> saveUserController(@RequestBody User user) {
+	public ResponseEntity<User> saveUserController(@Valid @RequestBody User user) {
 		User u = userService.saveOneUserFromService(user);
 		URI location = null;
 		location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getUserId()).toUri();
@@ -43,5 +46,14 @@ public class UserController {
 	@GetMapping(path = "/getAllUsers")
 	public List<User> findAllController() {
 		return userService.findAllUsersFromDAO();
+	}
+	
+	@DeleteMapping(path="/deleteUser/{id}")
+	public void deleteUserController(@PathVariable Integer id) throws UserNotFoundException {
+		User user = userService.deleteOneUserFromService(id);
+		
+		if(user == null) {
+			throw new UserNotFoundException("USER NOT FOUND...."+id);
+		}
 	}
 }

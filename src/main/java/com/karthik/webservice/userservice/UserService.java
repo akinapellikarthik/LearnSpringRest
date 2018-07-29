@@ -29,4 +29,10 @@ public class UserService {
 	public List<User> findAllUsersFromDAO(){
 		return userDAO.findAll();
 	}
+
+	public User deleteOneUserFromService(Integer id) {
+		// TODO Auto-generated method stub
+		
+		return userDAO.deleteOne(id);
+	}
 }

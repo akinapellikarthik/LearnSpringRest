@@ -2,6 +2,7 @@ package com.karthik.webservice.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -48,6 +49,20 @@ public class UserDAO {
 			userList.add(u);
 		}
 		return u;
+	}
+
+	public User deleteOne(Integer id) {
+		
+		Iterator<User> itr = userList.iterator();
+		while(itr.hasNext()) {
+			User u = itr.next();
+			if(u.getUserId() == id) {
+				itr.remove();
+				return u;
+			}
+		}
+		
+		return null;
 	}
 
 }

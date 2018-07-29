@@ -2,16 +2,26 @@ package com.karthik.webservice.userVo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class User {
-	
+
+	@Size(min = 2, message = "Name must contain atleast 2 characters")
 	private String userName;
+
+	@Null
 	private Integer userId;
+
+	@Past(message="Date cannot be further ....")
 	private Date dateOfBirth;
+
 	@Override
 	public String toString() {
 		return "User [userName=" + userName + ", userId=" + userId + ", dateOfBirth=" + dateOfBirth + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -21,6 +31,7 @@ public class User {
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,35 +58,41 @@ public class User {
 			return false;
 		return true;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public Integer getUserId() {
 		return userId;
 	}
+
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
+
 	public User(String userName, Integer userId, Date dateOfBirth) {
 		super();
 		this.userName = userName;
 		this.userId = userId;
 		this.dateOfBirth = dateOfBirth;
 	}
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 }
