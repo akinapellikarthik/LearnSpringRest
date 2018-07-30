@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.karthik.webservice.exception.UserNotFoundException;
@@ -24,7 +28,13 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private LocaleResolver localeResolver;
 
+	@Autowired
+	private MessageSource messageSource;
+	
 	@GetMapping(path = "/findUser/{userId}")
 	public User findOneController(@PathVariable Integer userId) throws UserNotFoundException {
 		User u = userService.findOneByIdFromDAO(userId);
@@ -55,5 +65,10 @@ public class UserController {
 		if(user == null) {
 			throw new UserNotFoundException("USER NOT FOUND...."+id);
 		}
+	}
+	
+	@GetMapping(path="/hello-world-internalization")
+	public String helloWorldInternalization() {
+		return messageSource.getMessage("good.morning.message", null,LocaleContextHolder.getLocale());
 	}
 }
