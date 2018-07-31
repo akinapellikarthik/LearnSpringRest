@@ -2,16 +2,17 @@ package com.karthik.webservice.userVo;
 
 import java.util.Date;
 
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
+import org.springframework.lang.Nullable;
 
 public class User {
 
 	@Size(min = 2, message = "Name must contain atleast 2 characters")
 	private String userName;
 
-	@Null
+	@Nullable
 	private Integer userId;
 
 	@Past(message="Date cannot be further ....")

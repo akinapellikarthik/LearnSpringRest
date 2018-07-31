@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,17 +27,14 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private LocaleResolver localeResolver;
 
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@GetMapping(path = "/findUser/{userId}")
 	public User findOneController(@PathVariable Integer userId) throws UserNotFoundException {
 		User u = userService.findOneByIdFromDAO(userId);
-		if(u == null) {
+		if (u == null) {
 			throw new UserNotFoundException("USER NOT FOUND IN DATABASE......");
 		}
 		return u;
@@ -57,18 +53,18 @@ public class UserController {
 	public List<User> findAllController() {
 		return userService.findAllUsersFromDAO();
 	}
-	
-	@DeleteMapping(path="/deleteUser/{id}")
+
+	@DeleteMapping(path = "/deleteUser/{id}")
 	public void deleteUserController(@PathVariable Integer id) throws UserNotFoundException {
 		User user = userService.deleteOneUserFromService(id);
-		
-		if(user == null) {
-			throw new UserNotFoundException("USER NOT FOUND...."+id);
+
+		if (user == null) {
+			throw new UserNotFoundException("USER NOT FOUND...." + id);
 		}
 	}
-	
-	@GetMapping(path="/hello-world-internalization")
+
+	@GetMapping(path = "/hello-world-internalization")
 	public String helloWorldInternalization() {
-		return messageSource.getMessage("good.morning.message", null,LocaleContextHolder.getLocale());
+		return messageSource.getMessage("good.morning.message", null, LocaleContextHolder.getLocale());
 	}
 }
