@@ -7,15 +7,22 @@ import javax.validation.constraints.Size;
 
 import org.springframework.lang.Nullable;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "User Model class")
 public class User {
 
 	@Size(min = 2, message = "Name must contain atleast 2 characters")
+	@ApiModelProperty(notes = "Name should contain atleast 2 characters", required = true)
 	private String userName;
 
 	@Nullable
+	@ApiModelProperty(hidden = true)
 	private Integer userId;
 
-	@Past(message="Date cannot be further ....")
+	@Past(message = "Date cannot be further ....")
+	@ApiModelProperty(notes = "Birth date cannot be future date", required = true)
 	private Date dateOfBirth;
 
 	@Override
