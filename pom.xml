@@ -47,7 +47,7 @@
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
 
-
+		<!-- Swagger support config starts here -->
 
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -64,9 +64,28 @@
 			<scope>compile</scope>
 		</dependency>
 
-
+		<!-- Swagger support config ends here -->
 
 		<!-- For application/xml to accept dependency ends here -->
+
+
+
+
+		<!-- Actutator dependency tag starts here -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+
+
+		<!-- Actutator dependency tag ends here -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
