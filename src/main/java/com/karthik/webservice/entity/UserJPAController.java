@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +33,12 @@ public class UserJPAController {
 	@GetMapping(path = "/findById/{id}")
 	public Optional<User> findOne(@PathVariable Long id) {
 		return userRepository.findById(id);
+	}
+	
+	@GetMapping(path="/requesparam-demo/{id}")
+	public void testRequestParamAndPathVar(@RequestParam(value="id1") long bookid1,@RequestParam long bookid2) {
+		System.out.println("Book id1 is:"+bookid1);
+		System.out.println("Book id2 is:"+bookid2);
+		
 	}
 }
